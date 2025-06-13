@@ -1,615 +1,666 @@
 <!DOCTYPE html>
 <html lang="id">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SAFIRAHotspot - Login</title>
     <style>
-      /* CSS will be embedded here */
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #f0f2f5;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        margin: 0;
-        padding: 20px;
-        box-sizing: border-box;
-      }
-
-      .container {
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        width: 100%;
-        max-width: 400px; /* Adjust as needed */
-        padding: 30px;
-        text-align: center;
-        overflow: hidden; /* For running text */
-      }
-
-      .logo {
-        margin-bottom: 1px;
-      }
-
-      .logo img {
-        max-width: 200px;
-        height: auto;
-      }
-
-      h2 {
-        color: #555;
-        font-size: 1.1em;
-        margin-bottom: 20px;
-      }
-
-      .tab-buttons {
-        display: flex;
-        margin-bottom: 25px;
-        border-radius: 5px;
-        overflow: hidden;
-        border: 1px solid #ddd;
-      }
-
-      .tab-button {
-        flex: 1;
-        padding: 12px 0;
-        cursor: pointer;
-        font-size: 1.1em;
-        font-weight: bold;
-        transition: background-color 0.3s ease, color 0.3s ease;
-      }
-
-      .tab-button.voucher {
-        background-color: #3498db; /* Blue */
-        color: white;
-        border-right: 1px solid #ddd;
-      }
-
-      .tab-button.member {
-        background-color: #e74c3c; /* Red */
-        color: white;
-      }
-
-      .tab-button:not(.active) {
-        background-color: #ecf0f1;
-        color: #555;
-      }
-
-      .tab-button.active.voucher {
-        background-color: #2980b9; /* Darker blue */
-      }
-
-      .tab-button.active.member {
-        background-color: #c0392b; /* Darker red */
-      }
-
-      .tab-content {
-        display: none; /* Hidden by default */
-        padding-top: 10px;
-      }
-
-      .tab-content.active {
-        display: block;
-      }
-
-      .input-group {
-        margin-bottom: 15px;
-      }
-
-      .input-group input {
-        width: calc(100% - 20px);
-        padding: 12px 10px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        font-size: 1em;
-        box-sizing: border-box;
-      }
-
-      .login-buttons {
-        display: flex;
-        gap: 10px;
-        margin-bottom: 25px;
-      }
-
-      .login-buttons button {
-        flex: 1;
-        padding: 12px;
-        border: none;
-        border-radius: 5px;
-        font-size: 1.1em;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-      }
-
-      .login-buttons .trial-button {
-        background-color: #bdc3c7; /* Gray */
-        color: #555;
-      }
-
-      .login-buttons .login-button {
-        background-color: #3498db; /* Blue */
-        color: white;
-      }
-
-      .login-buttons .login-button:hover {
-        background-color: #2980b9;
-      }
-
-      .info-text {
-        color: #777;
-        font-size: 0.9em;
-        margin-bottom: 25px;
-      }
-
-      .voucher-slider {
-        position: relative;
-        width: 100%;
-        height: 100px; /* Atur tinggi sesuai konten Anda */
-        overflow: hidden; /* Ini bagian penting: menyembunyikan item yang di luar area */
-        border-radius: 5px;
-      }
-
-      .voucher-slider .voucher-details {
-        position: absolute; /* Membuat semua item menumpuk di satu tempat */
-        width: 100%;
-        height: 100%;
-        background-color: #ecf0f1;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        padding: 15px;
-        box-sizing: border-box;
-        /* Menerapkan animasi bernama 'slide' selama 12 detik, berulang terus */
-        animation: slide 12s linear infinite;
-        opacity: 0; /* Awalnya semua item disembunyikan */
-      }
-
-      /* Atur jeda animasi untuk setiap item agar muncul bergantian */
-      .voucher-slider .voucher-details:nth-child(1) {
-        animation-delay: 0s; /* Item pertama mulai langsung */
-      }
-      .voucher-slider .voucher-details:nth-child(2) {
-        animation-delay: 4s; /* Item kedua mulai setelah 4 detik */
-      }
-      .voucher-slider .voucher-details:nth-child(3) {
-        animation-delay: 8s; /* Item ketiga mulai setelah 8 detik */
-      }
-
-      /* Definisikan langkah-langkah animasi 'slide' */
-      @keyframes slide {
-        0% {
-          transform: translateY(100%); /* Mulai dari bawah, di luar layar */
-          opacity: 0;
+        /* General Body and Container Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
         }
-        10% {
-          transform: translateY(0); /* Geser ke posisi normal (masuk) */
-          opacity: 1; /* Tampilkan item */
-        }
-        33% {
-          transform: translateY(0); /* Tetap di posisi normal */
-          opacity: 1; /* Tetap terlihat */
-        }
-        43% {
-          transform: translateY(-100%); /* Geser ke atas, keluar dari layar */
-          opacity: 0; /* Sembunyikan lagi */
-        }
-        100% {
-          transform: translateY(-100%); /* Tetap di luar layar */
-          opacity: 0;
-        }
-      }
 
-      .ads-slider-container {
-        margin-top: 20px;
-        border-radius: 5px;
-        overflow: hidden;
-        position: relative;
-        height: 200px; /* Set a fixed height for the slider */
-      }
-
-      .ads-slider-wrapper {
-        display: flex;
-        width: 100%; /* Important for horizontal slides */
-        height: 100%;
-        transition: transform 0.5s ease-in-out;
-      }
-
-      .ads-slide {
-        flex: 1 0 100%; /* Each slide takes 100% of the container width */
-        min-width: 100%;
-        height: 100%;
-        display: flex; /* To center content if needed */
-        justify-content: center;
-        align-items: center;
-        background-color: #f0f2f5; /* Fallback background for slides */
-      }
-
-      .ads-slide img {
-        display: block;
-        max-width: 100%;
-        max-height: 100%;
-        width: auto;
-        height: auto;
-        object-fit: contain; /* Ensure the image fits within the slide without cropping */
-        border-radius: 5px;
-      }
-
-      .ads-navigation {
-        position: absolute;
-        bottom: 10px;
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        gap: 5px;
-        z-index: 10; /* Ensure dots are above images */
-      }
-
-      .ads-dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background-color: rgba(0, 0, 0, 0.5);
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-      }
-
-      .ads-dot.active {
-        background-color: rgba(0, 0, 0, 0.9);
-      }
-
-      .footer {
-        margin-top: 30px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #888;
-        font-size: 0.8em;
-      }
-
-      .footer img {
-        height: 100px;
-        margin-right: 10px;
-      }
-
-      /* Responsive adjustments */
-      @media (max-width: 480px) {
         .container {
-          padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px; /* Adjust as needed */
+            padding: 30px;
+            text-align: center;
+            overflow: hidden; /* Important for containing internal animations/sliders */
         }
+
+        /* Logo Styles */
+        .logo {
+            margin-bottom: 1px; /* Reduced margin from previous example for a tighter look */
+        }
+
+        .logo img {
+            max-width: 200px; /* Adjusted max-width for logo */
+            height: auto;
+        }
+
+        /* Heading Styles */
+        h2 {
+            color: #555;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+
+        /* Tab Button Styles (VOUCHER/MEMBER) */
+        .tab-buttons {
+            display: flex;
+            margin-bottom: 25px;
+            border-radius: 5px;
+            overflow: hidden;
+            border: 1px solid #ddd;
+        }
+
         .tab-button {
-          font-size: 1em;
+            flex: 1;
+            padding: 12px 0;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
+
+        .tab-button.voucher {
+            background-color: #3498db; /* Blue */
+            color: white;
+            border-right: 1px solid #ddd;
+        }
+
+        .tab-button.member {
+            background-color: #e74c3c; /* Red */
+            color: white;
+        }
+
+        .tab-button:not(.active) {
+            background-color: #ecf0f1;
+            color: #555;
+        }
+
+        .tab-button.active.voucher {
+            background-color: #2980b9; /* Darker blue */
+        }
+
+        .tab-button.active.member {
+            background-color: #c0392b; /* Darker red */
+        }
+
+        /* Tab Content Styles */
+        .tab-content {
+            display: none; /* Hidden by default */
+            padding-top: 10px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Input Group Styles */
+        .input-group {
+            margin-bottom: 15px;
+        }
+
         .input-group input {
-          padding: 10px;
+            width: calc(100% - 20px);
+            padding: 12px 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            box-sizing: border-box;
         }
+
+        /* Login Button Styles */
+        .login-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
         .login-buttons button {
-          font-size: 1em;
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
         }
-      }
+
+        .login-buttons .trial-button {
+            background-color: #bdc3c7; /* Gray */
+            color: #555;
+        }
+
+        .login-buttons .login-button {
+            background-color: #3498db; /* Blue */
+            color: white;
+        }
+
+        .login-buttons .login-button:hover {
+            background-color: #2980b9;
+        }
+
+        /* Info Text Styles */
+        .info-text {
+            color: #777;
+            font-size: 0.9em;
+            margin-bottom: 25px;
+        }
+
+        /* Voucher Info Vertical Slider (Running Text) */
+        .voucher-slider {
+            position: relative;
+            width: 100%;
+            height: 100px; /* Fixed height to control the visible area of the slider */
+            overflow: hidden; /* Crucial: Hides content outside this area */
+            border-radius: 5px;
+            background-color: #ecf0f1; /* Background for the slider itself */
+            border: 1px solid #ddd;
+            display: flex; /* Using flexbox to arrange inner items */
+            flex-direction: column; /* Stack items vertically */
+            justify-content: center; /* Center content vertically initially */
+            align-items: center; /* Center content horizontally */
+        }
+
+        .voucher-details-item {
+            position: absolute; /* Allows items to overlap and be positioned with animation */
+            width: 100%;
+            padding: 15px;
+            box-sizing: border-box;
+            color: #333;
+            font-size: 1em;
+            text-align: center;
+            opacity: 0; /* Hidden by default */
+            animation: verticalSlide 12s linear infinite; /* Animation applied to each item */
+        }
+
+        .voucher-details-item p {
+            margin: 5px 0;
+        }
+
+        /* Specific animation delays for each item */
+        .voucher-details-item:nth-child(1) { animation-delay: 0s; }
+        .voucher-details-item:nth-child(2) { animation-delay: 4s; }
+        .voucher-details-item:nth-child(3) { animation-delay: 8s; }
+
+        @keyframes verticalSlide {
+            0% { transform: translateY(100%); opacity: 0; } /* Start below, invisible */
+            5% { transform: translateY(0); opacity: 1; } /* Slide up, visible */
+            28% { transform: translateY(0); opacity: 1; } /* Stay visible */
+            33% { transform: translateY(-100%); opacity: 0; } /* Slide up and out, invisible */
+            100% { transform: translateY(-100%); opacity: 0; } /* Stay out, invisible */
+        }
+
+
+        /* Advertisement Image Slider (Horizontal Carousel) */
+        .ads-slider-container {
+            margin-top: 20px;
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+            height: 200px; /* Set a fixed height for the slider */
+            background-color: #ecf0f1; /* Background for slider area */
+            border: 1px solid #ddd;
+        }
+
+        .ads-slider-wrapper {
+            display: flex;
+            width: 100%; /* Important for horizontal slides */
+            height: 100%;
+            transition: transform 0.5s ease-in-out; /* Smooth transition for slides */
+        }
+
+        .ads-slide {
+            flex: 1 0 100%; /* Each slide takes 100% of the container width */
+            min-width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .ads-slide img {
+            display: block;
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain; /* Ensure the image fits within the slide without cropping */
+            border-radius: 5px;
+        }
+
+        .ads-navigation {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 5px;
+            z-index: 10; /* Ensure dots are above images */
+        }
+
+        .ads-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .ads-dot.active {
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        /* Footer Styles */
+        .footer {
+            margin-top: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-size: 0.8em;
+            flex-wrap: wrap; /* Allow text to wrap if necessary */
+        }
+
+        .footer img {
+            height: 50px; /* Adjusted footer logo size */
+            margin-right: 10px;
+            margin-bottom: 5px; /* Added margin for better spacing on small screens */
+        }
+
+        /* New styles for footer running text */
+        .footer-running-text-container {
+            flex-grow: 1; /* Allows it to take available space */
+            white-space: nowrap; /* Keep text on one line */
+            overflow: hidden; /* Hide overflow for marquee effect */
+            position: relative;
+            height: 1.2em; /* Adjust height to fit text */
+            line-height: 1.2em; /* Match line-height to height */
+            color: #555; /* Adjust color as needed */
+            font-size: 1.1em; /* Adjust font size as needed */
+            font-weight: bold;
+        }
+
+        .footer-running-text {
+            display: inline-block; /* Essential for animation */
+            padding-left: 100%; /* Start text off-screen to the right */
+            animation: footerMarquee 15s linear infinite; /* Adjust duration and speed */
+        }
+
+        @keyframes footerMarquee {
+            0% { transform: translateX(0%); } /* Start at the padding-left position */
+            100% { transform: translateX(-100%); } /* Move fully across the screen */
+        }
+
+
+        /* Responsive adjustments */
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+            }
+            .tab-button {
+                font-size: 1em;
+            }
+            .input-group input {
+                padding: 10px;
+            }
+            .login-buttons button {
+                font-size: 1em;
+            }
+            .ads-slider-container {
+                height: 150px; /* Adjust height for smaller screens */
+            }
+            .footer {
+                flex-direction: column;
+                text-align: center;
+            }
+            .footer img {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+            .footer-running-text-container {
+                 width: 100%; /* Ensure it takes full width on small screens */
+                 text-align: center; /* Center the container on small screens */
+            }
+            .footer-running-text {
+                padding-left: 0; /* No need for padding-left trick if centered on small screen */
+                animation: none; /* Disable marquee on small screens if you prefer */
+            }
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <div class="container">
-      <div class="logo">
-        <img src="safira.png" alt="Friend Net Hotspot Logo" />
-      </div>
-
-      <h2>
-        Gunakan <span style="color: #3498db">VOUCHER</span> sesuai kebutuhan
-      </h2>
-
-      <div class="tab-buttons">
-        <div class="tab-button voucher active" id="voucherTab">VOUCHER</div>
-        <div class="tab-button member" id="memberTab">MEMBER</div>
-      </div>
-
-      <form
-        id="voucherForm"
-        class="tab-content active"
-        action="$(link-login)"
-        method="post"
-      >
-        <input type="hidden" name="dst" value="$(link-orig)" />
-        <input type="hidden" name="popup" value="true" />
-
-        <div class="input-group">
-          <input
-            type="text"
-            name="username"
-            placeholder="KODE VOUCHER"
-            required
-          />
+        <div class="logo">
+            <img src="safira.png" alt="SAFIRAHotspot Logo" />
         </div>
 
-        <div class="login-buttons">
-          <button
-            type="button"
-            class="trial-button"
-            onclick="location.href='$(link-login-only)?dst=$(link-orig)&username=T-$(mac)'"
-          >
-            TRIAL LIMITED
-          </button>
-          <button type="submit" class="login-button">LOGIN</button>
+        <h2>
+            Gunakan <span style="color: #3498db">VOUCHER</span> sesuai kebutuhan
+        </h2>
+
+        <div class="tab-buttons">
+            <div class="tab-button voucher active" id="voucherTab">VOUCHER</div>
+            <div class="tab-button member" id="memberTab">MEMBER</div>
         </div>
 
-        <p class="info-text">
-          TIPS ! Simpan voucher hingga masa aktif berakhir
-        </p>
-        <div class="voucher-slider">
-          <div class="voucher-details">
-            <p><strong>VOUCHER Rp. 30.000, 7 HARI</strong></p>
-            <p>UNLIMITED TANPA BATASAN KUOTA</p>
-          </div>
-          <div class="voucher-details">
-            <p><strong>VOUCHER Rp. 15.000, 3 HARI</strong></p>
-            <p>UNLIMITED TANPA BATASAN KUOTA</p>
-          </div>
-          <div class="voucher-details">
-            <p><strong>VOUCHER Rp. 5.000, 1 HARI</strong></p>
-            <p>UNLIMITED TANPA BATASAN KUOTA</p>
-          </div>
+        <form
+            id="voucherForm"
+            class="tab-content active"
+            action="$(link-login)"
+            method="post"
+        >
+            <input type="hidden" name="dst" value="$(link-orig)" />
+            <input type="hidden" name="popup" value="true" />
+
+            <div class="input-group">
+                <input
+                    type="text"
+                    name="username"
+                    placeholder="KODE VOUCHER"
+                    required
+                />
+            </div>
+
+            <div class="login-buttons">
+                <button
+                    type="button"
+                    class="trial-button"
+                    onclick="location.href='$(link-login-only)?dst=$(link-orig)&username=T-$(mac)'"
+                >
+                    TRIAL LIMITED
+                </button>
+                <button type="submit" class="login-button">LOGIN</button>
+            </div>
+
+            <p class="info-text">
+                TIPS ! Simpan voucher hingga masa aktif berakhir
+            </p>
+            
+            <div class="voucher-slider">
+                <div class="voucher-details-item">
+                    <p><strong>VOUCHER Rp. 3.000, 6 JAM</strong></p>
+                    <p>UNLIMITED TANPA BATASAN KUOTA</p>
+                </div>
+                <div class="voucher-details-item">
+                    <p><strong>VOUCHER Rp. 5.000, 24 JAM</strong></p>
+                    <p>UNLIMITED TANPA BATASAN KUOTA</p>
+                </div>
+                <div class="voucher-details-item">
+                    <p><strong>Shafira hotspot telah tersedia di Sikabu - kabu</strong></p>
+                    <p>Dengan kode voucher yang sama..Dengan nama "BARIGI HOTSPOT" dan "ALANA HOTSPOT"</p>
+                </div>
+            </div>
+        </form>
+
+        <form
+            id="memberForm"
+            class="tab-content"
+            action="$(link-login)"
+            method="post"
+        >
+            <input type="hidden" name="dst" value="$(link-orig)" />
+            <input type="hidden" name="popup" value="true" />
+
+            <div class="input-group">
+                <input type="text" name="username" placeholder="Username" required />
+            </div>
+            <div class="input-group">
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    required
+                />
+            </div>
+
+            <div class="login-buttons">
+                <button
+                    type="button"
+                    class="trial-button"
+                    onclick="location.href='$(link-login-only)?dst=$(link-orig)&username=T-$(mac)'"
+                >
+                    TRIAL LIMITED
+                </button>
+                <button type="submit" class="login-button">LOGIN</button>
+            </div>
+
+            <p class="info-text">
+                INFO ! Pilih signal terbaik dari lokasi Anda berada
+            </p>
+
+            <div class="voucher-slider">
+                <div class="voucher-details-item">
+                    <p><strong>VOUCHER Rp. 3.000, 6 JAM</strong></p>
+                    <p>UNLIMITED TANPA BATASAN KUOTA</p>
+                </div>
+                <div class="voucher-details-item">
+                    <p><strong>VOUCHER Rp. 5.000, 24 JAM</strong></p>
+                    <p>UNLIMITED TANPA BATASAN KUOTA</p>
+                </div>
+                <div class="voucher-details-item">
+                    <p><strong>Shafira hotspot</strong></p>
+                    <p>telah tersedia di sikabu - kabu dengan kode voucer yang sama . Atas nama hotspot : BARIGI HOTSPOT dan ALANA HOTSPOT</p>
+                </div>
+            </div>
+        </form>
+
+        <div class="ads-slider-container">
+            <div class="ads-slider-wrapper" id="adsSliderWrapper">
+                <div class="ads-slide">
+                    <img src="safiraGambar.png" alt="Safira Hotspot Promo 1" />
+                </div>
+                <div class="ads-slide">
+                    <img src="atena.gif" alt="Safira Hotspot Promo 2" />
+                </div>
+                <div class="ads-slide">
+                    <img src="chat.gif" alt="Safira Hotspot Promo 3" />
+                </div>
+            </div>
+            <div class="ads-navigation" id="adsDotsContainer">
+                </div>
         </div>
-      </form>
 
-      <form
-        id="memberForm"
-        class="tab-content"
-        action="$(link-login)"
-        method="post"
-      >
-        <input type="hidden" name="dst" value="$(link-orig)" />
-        <input type="hidden" name="popup" value="true" />
-
-        <div class="input-group">
-          <input type="text" name="username" placeholder="Username" required />
+        <div class="footer">
+            <img src="safira.png" alt="SAFIRAHotspot Footer" />
+            <div class="footer-running-text-container">
+                <span class="footer-running-text">HUBUNGI KAMI 0813-5546-1711 UNTUK INFORMASI LEBIH LANJUT!</span>
+            </div>
         </div>
-        <div class="input-group">
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            required
-          />
-        </div>
-
-        <div class="login-buttons">
-          <button
-            type="button"
-            class="trial-button"
-            onclick="location.href='$(link-login-only)?dst=$(link-orig)&username=T-$(mac)'"
-          >
-            TRIAL LIMITED
-          </button>
-          <button type="submit" class="login-button">LOGIN</button>
-        </div>
-
-        <p class="info-text">
-          INFO ! Pilih signal terbaik dari lokasi Anda berada
-        </p>
-
-        <div class="voucher-slider">
-          <div class="voucher-details">
-            <p><strong>VOUCHER Rp. 30.000, 7 HARI</strong></p>
-            <p>UNLIMITED TANPA BATASAN KUOTA</p>
-          </div>
-          <div class="voucher-details">
-            <p><strong>VOUCHER Rp. 15.000, 3 HARI</strong></p>
-            <p>UNLIMITED TANPA BATASAN KUOTA</p>
-          </div>
-          <div class="voucher-details">
-            <p><strong>VOUCHER Rp. 5.000, 1 HARI</strong></p>
-            <p>UNLIMITED TANPA BATASAN KUOTA</p>
-          </div>
-        </div>
-      </form>
-
-      <div class="ads-slider-container">
-        <div class="ads-slider-wrapper" id="adsSliderWrapper">
-          <div class="ads-slide">
-            <img src="safiraGambar.png" alt="Safira Hotspot Promo 1" />
-          </div>
-          <div class="ads-slide">
-            <img src="atena.gif" alt="Safira Hotspot Promo 2" />
-          </div>
-          <div class="ads-slide">
-            <img src="chat.gif" alt="Safira Hotspot Promo 3" />
-          </div>
-          </div>
-        <div class="ads-navigation" id="adsDotsContainer">
-          </div>
-      </div>
-
-      <div class="footer">
-        <img src="safira.png" alt="Friend Net Hotspot Footer" />
-        <span>DENGAN INTERNET TERCEPAT DIDUNIA</span>
-      </div>
     </div>
 
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const voucherTab = document.getElementById("voucherTab");
-        const memberTab = document.getElementById("memberTab");
-        const voucherForm = document.getElementById("voucherForm");
-        const memberForm = document.getElementById("memberForm");
+        document.addEventListener("DOMContentLoaded", function () {
+            const voucherTab = document.getElementById("voucherTab");
+            const memberTab = document.getElementById("memberTab");
+            const voucherForm = document.getElementById("voucherForm");
+            const memberForm = document.getElementById("memberForm");
 
-        function showTab(tabId) {
-          // Remove 'active' from all tabs and content
-          voucherTab.classList.remove("active");
-          memberTab.classList.remove("active");
-          voucherForm.classList.remove("active");
-          memberForm.classList.remove("active");
+            function showTab(tabId) {
+                // Remove 'active' from all tabs and content
+                voucherTab.classList.remove("active");
+                memberTab.classList.remove("active");
+                voucherForm.classList.remove("active");
+                memberForm.classList.remove("active");
 
-          // Add 'active' to the selected tab and content
-          if (tabId === "voucher") {
-            voucherTab.classList.add("active");
-            voucherForm.classList.add("active");
-          } else if (tabId === "member") {
-            memberTab.classList.add("active");
-            memberForm.classList.add("active");
-          }
-        }
-
-        // Set initial active tab
-        showTab("voucher");
-
-        voucherTab.addEventListener("click", function () {
-          showTab("voucher");
-        });
-
-        memberTab.addEventListener("click", function () {
-          showTab("member");
-        });
-
-        // Handle potential Mikrotik error messages
-        const urlParams = new URLSearchParams(window.location.search);
-        const error = urlParams.get("error");
-        if (error) {
-          alert("Login Error: " + error);
-        }
-
-        // --- Ads Slider JavaScript ---
-        const adsSliderWrapper = document.getElementById("adsSliderWrapper");
-        const adsSlides = document.querySelectorAll(".ads-slide");
-        const adsDotsContainer = document.getElementById("adsDotsContainer");
-        const totalSlides = adsSlides.length;
-        let currentSlide = 0;
-        let autoSlideInterval;
-        const slideIntervalTime = 5000; // 5 seconds
-
-        // Create navigation dots
-        function createDots() {
-          adsSlides.forEach((_, index) => {
-            const dot = document.createElement("span");
-            dot.classList.add("ads-dot");
-            dot.setAttribute("data-slide", index);
-            dot.addEventListener("click", () => goToSlide(index));
-            adsDotsContainer.appendChild(dot);
-          });
-          updateDots();
-        }
-
-        // Update active dot
-        function updateDots() {
-          document.querySelectorAll(".ads-dot").forEach((dot, index) => {
-            if (index === currentSlide) {
-              dot.classList.add("active");
-            } else {
-              dot.classList.remove("active");
+                // Add 'active' to the selected tab and content
+                if (tabId === "voucher") {
+                    voucherTab.classList.add("active");
+                    voucherForm.classList.add("active");
+                } else if (tabId === "member") {
+                    memberTab.classList.add("active");
+                    memberForm.classList.add("active");
+                }
             }
-          });
-        }
 
-        // Go to a specific slide
-        function goToSlide(slideIndex) {
-          if (slideIndex < 0) {
-            currentSlide = totalSlides - 1;
-          } else if (slideIndex >= totalSlides) {
-            currentSlide = 0;
-          } else {
-            currentSlide = slideIndex;
-          }
-          const offset = -currentSlide * 100;
-          adsSliderWrapper.style.transform = `translateX(${offset}%)`;
-          updateDots();
-        }
+            // Set initial active tab
+            showTab("voucher");
 
-        // Auto slide function
-        function startAutoSlide() {
-          autoSlideInterval = setInterval(() => {
-            goToSlide(currentSlide + 1);
-          }, slideIntervalTime);
-        }
+            voucherTab.addEventListener("click", function () {
+                showTab("voucher");
+            });
 
-        // Stop auto slide
-        function stopAutoSlide() {
-          clearInterval(autoSlideInterval);
-        }
+            memberTab.addEventListener("click", function () {
+                showTab("member");
+            });
 
-        // Initialize slider
-        createDots();
-        startAutoSlide();
-
-        // Optional: Add manual swipe (drag) functionality
-        let isDragging = false;
-        let startPos = 0;
-        let currentTranslate = 0;
-        let prevTranslate = 0;
-        let animationID;
-        let currentIndex = 0; // This will track the actual position for dragging
-
-        adsSliderWrapper.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            startPos = e.clientX;
-            clearInterval(autoSlideInterval); // Stop auto-slide on manual interaction
-            adsSliderWrapper.style.transition = 'none'; // Disable smooth transition during drag
-            prevTranslate = -currentSlide * adsSliderWrapper.offsetWidth; // Store current position
-        });
-
-        adsSliderWrapper.addEventListener('mouseup', () => {
-            isDragging = false;
-            const movedBy = currentTranslate - prevTranslate;
-
-            if (movedBy < -50) { // Swiped left significantly
-                goToSlide(currentSlide + 1);
-            } else if (movedBy > 50) { // Swiped right significantly
-                goToSlide(currentSlide - 1);
-            } else { // Didn't swipe enough, go back to current slide
-                goToSlide(currentSlide);
+            // Handle potential Mikrotik error messages
+            const urlParams = new URLSearchParams(window.location.search);
+            const error = urlParams.get("error");
+            if (error) {
+                alert("Login Error: " + error);
             }
-            adsSliderWrapper.style.transition = 'transform 0.5s ease-in-out'; // Re-enable transition
-            startAutoSlide(); // Resume auto-slide after manual interaction
-        });
 
-        adsSliderWrapper.addEventListener('mouseleave', () => {
-            if (isDragging) {
+            // --- Advertisement Image Slider (Carousel) JavaScript ---
+            const adsSliderWrapper = document.getElementById("adsSliderWrapper");
+            const adsSlides = document.querySelectorAll(".ads-slide");
+            const adsDotsContainer = document.getElementById("adsDotsContainer");
+            const totalSlides = adsSlides.length;
+            let currentSlide = 0;
+            let autoSlideInterval;
+            const slideIntervalTime = 5000; // 5 seconds
+
+            // Create navigation dots
+            function createDots() {
+                adsDotsContainer.innerHTML = ''; // Clear existing dots
+                adsSlides.forEach((_, index) => {
+                    const dot = document.createElement("span");
+                    dot.classList.add("ads-dot");
+                    dot.setAttribute("data-slide", index);
+                    dot.addEventListener("click", () => {
+                        goToSlide(index);
+                        stopAutoSlide(); // Stop auto-slide when a dot is clicked
+                        startAutoSlide(); // Restart after a short delay or interaction
+                    });
+                    adsDotsContainer.appendChild(dot);
+                });
+                updateDots();
+            }
+
+            // Update active dot
+            function updateDots() {
+                document.querySelectorAll(".ads-dot").forEach((dot, index) => {
+                    if (index === currentSlide) {
+                        dot.classList.add("active");
+                    } else {
+                        dot.classList.remove("active");
+                    }
+                });
+            }
+
+            // Go to a specific slide
+            function goToSlide(slideIndex) {
+                if (slideIndex < 0) {
+                    currentSlide = totalSlides - 1;
+                } else if (slideIndex >= totalSlides) {
+                    currentSlide = 0;
+                } else {
+                    currentSlide = slideIndex;
+                }
+                const offset = -currentSlide * 100;
+                adsSliderWrapper.style.transform = `translateX(${offset}%)`;
+                updateDots();
+            }
+
+            // Auto slide function
+            function startAutoSlide() {
+                stopAutoSlide(); // Clear any existing interval before starting a new one
+                autoSlideInterval = setInterval(() => {
+                    goToSlide(currentSlide + 1);
+                }, slideIntervalTime);
+            }
+
+            // Stop auto slide
+            function stopAutoSlide() {
+                clearInterval(autoSlideInterval);
+            }
+
+            // Initialize slider
+            createDots();
+            startAutoSlide();
+
+            // Optional: Add manual swipe (drag) functionality for the ads slider
+            let isDragging = false;
+            let startPos = 0;
+            let currentTranslate = 0;
+            let prevTranslate = 0;
+
+            adsSliderWrapper.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                startPos = e.clientX;
+                stopAutoSlide(); // Stop auto-slide on manual interaction
+                adsSliderWrapper.style.transition = 'none'; // Disable smooth transition during drag
+                prevTranslate = adsSliderWrapper.getBoundingClientRect().left - adsSliderWrapper.parentElement.getBoundingClientRect().left;
+            });
+
+            adsSliderWrapper.addEventListener('mouseup', () => {
                 isDragging = false;
-                goToSlide(currentSlide); // Snap back to current slide if mouse leaves while dragging
+                const movedBy = currentTranslate - prevTranslate; // Use actual pixel movement
+
+                // Determine which slide to snap to based on how much it was dragged
+                if (movedBy < -adsSliderWrapper.offsetWidth / 4) { // Swiped left significantly (more than 1/4 of slide width)
+                    goToSlide(currentSlide + 1);
+                } else if (movedBy > adsSliderWrapper.offsetWidth / 4) { // Swiped right significantly
+                    goToSlide(currentSlide - 1);
+                } else { // Didn't swipe enough, go back to current slide
+                    goToSlide(currentSlide);
+                }
+                adsSliderWrapper.style.transition = 'transform 0.5s ease-in-out'; // Re-enable transition
+                startAutoSlide(); // Resume auto-slide after manual interaction
+            });
+
+            adsSliderWrapper.addEventListener('mouseleave', () => {
+                if (isDragging) {
+                    isDragging = false;
+                    goToSlide(currentSlide); // Snap back to current slide if mouse leaves while dragging
+                    adsSliderWrapper.style.transition = 'transform 0.5s ease-in-out';
+                    startAutoSlide();
+                }
+            });
+
+            adsSliderWrapper.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                e.preventDefault(); // Prevent text selection etc.
+                const currentPosition = e.clientX;
+                currentTranslate = prevTranslate + currentPosition - startPos;
+                adsSliderWrapper.style.transform = `translateX(${currentTranslate}px)`;
+            });
+
+            // Touch events for mobile
+            adsSliderWrapper.addEventListener('touchstart', (e) => {
+                isDragging = true;
+                startPos = e.touches[0].clientX;
+                stopAutoSlide();
+                adsSliderWrapper.style.transition = 'none';
+                prevTranslate = adsSliderWrapper.getBoundingClientRect().left - adsSliderWrapper.parentElement.getBoundingClientRect().left;
+            });
+
+            adsSliderWrapper.addEventListener('touchend', () => {
+                isDragging = false;
+                const movedBy = currentTranslate - prevTranslate;
+
+                if (movedBy < -adsSliderWrapper.offsetWidth / 4) {
+                    goToSlide(currentSlide + 1);
+                } else if (movedBy > adsSliderWrapper.offsetWidth / 4) {
+                    goToSlide(currentSlide - 1);
+                } else {
+                    goToSlide(currentSlide);
+                }
                 adsSliderWrapper.style.transition = 'transform 0.5s ease-in-out';
                 startAutoSlide();
-            }
+            });
+
+            adsSliderWrapper.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                const currentPosition = e.touches[0].clientX;
+                currentTranslate = prevTranslate + currentPosition - startPos;
+                adsSliderWrapper.style.transform = `translateX(${currentTranslate}px)`;
+            });
         });
-
-        adsSliderWrapper.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            e.preventDefault(); // Prevent text selection etc.
-            const currentPosition = e.clientX;
-            currentTranslate = prevTranslate + currentPosition - startPos;
-            adsSliderWrapper.style.transform = `translateX(${currentTranslate}px)`;
-        });
-
-        // Touch events for mobile
-        adsSliderWrapper.addEventListener('touchstart', (e) => {
-            isDragging = true;
-            startPos = e.touches[0].clientX;
-            clearInterval(autoSlideInterval);
-            adsSliderWrapper.style.transition = 'none';
-            prevTranslate = -currentSlide * adsSliderWrapper.offsetWidth;
-        });
-
-        adsSliderWrapper.addEventListener('touchend', () => {
-            isDragging = false;
-            const movedBy = currentTranslate - prevTranslate;
-
-            if (movedBy < -50) {
-                goToSlide(currentSlide + 1);
-            } else if (movedBy > 50) {
-                goToSlide(currentSlide - 1);
-            } else {
-                goToSlide(currentSlide);
-            }
-            adsSliderWrapper.style.transition = 'transform 0.5s ease-in-out';
-            startAutoSlide();
-        });
-
-        adsSliderWrapper.addEventListener('touchmove', (e) => {
-            if (!isDragging) return;
-            const currentPosition = e.touches[0].clientX;
-            currentTranslate = prevTranslate + currentPosition - startPos;
-            adsSliderWrapper.style.transform = `translateX(${currentTranslate}px)`;
-        });
-
-      });
     </script>
-  </body>
+</body>
 </html>
